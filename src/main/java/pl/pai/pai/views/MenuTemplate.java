@@ -1,6 +1,7 @@
 package pl.pai.pai.views;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -73,6 +74,13 @@ public class MenuTemplate {
 			
 		});
 		hl.add(addSurvey);
+		
+		Button logout = new Button("Wyloguj się");
+		logout.addClickListener(x->{
+			base.getUI().get().getPage().setLocation("/logout");
+			
+		});
+		hl.add(logout);
 		return hl;
 	}
 	
