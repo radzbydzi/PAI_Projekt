@@ -80,6 +80,7 @@ public class ShowProfilView extends VerticalLayout{
 
 	@PostConstruct
 	void postConstruct() {
+		MenuTemplate.addMenu(this);
 		user = userService.getAll().stream().filter(y->y.getEmail().equals(SecurityUtils.getLoggedUserName())).findFirst().get();
 		
 		add(new H1("Profil"));

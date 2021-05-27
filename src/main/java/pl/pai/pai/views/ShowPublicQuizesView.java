@@ -90,6 +90,7 @@ public class ShowPublicQuizesView extends VerticalLayout{
 	}
 	@PostConstruct
 	void postConstruct() {
+		MenuTemplate.addMenu(this);
 		user = userService.getAll().stream().filter(y->y.getEmail().equals(SecurityUtils.getLoggedUserName())).findFirst().get();
 		
 		List<Quiz> myQuizes = quizService.getAll().stream().filter(x->x.isForEveryone()).collect(Collectors.toList());

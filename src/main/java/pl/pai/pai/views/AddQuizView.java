@@ -104,6 +104,7 @@ public class AddQuizView extends VerticalLayout{
 	}
 	@PostConstruct
 	void postConstruct() {
+		MenuTemplate.addMenu(this);
 		TextField  title = new TextField ("Tytuł");
 		title.setWidth(inputWidth);
 		add(title);

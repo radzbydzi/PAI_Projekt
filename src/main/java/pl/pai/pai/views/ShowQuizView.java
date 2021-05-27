@@ -213,6 +213,7 @@ public class ShowQuizView extends VerticalLayout implements HasUrlParameter<Stri
 		}
 		
 		public QuizInterior(){
+			MenuTemplate.addMenu(this);
 			H3 timer = new H3(showTime(quiz.getDurationInSeconds()));
 			add(new H1(quiz.getTitle()));
 			add(new HtmlComponent("br"));
@@ -329,6 +330,7 @@ public class ShowQuizView extends VerticalLayout implements HasUrlParameter<Stri
 			return grade;
 		}
 		public QuizAdminListInterior(){
+			MenuTemplate.addMenu(this);
 			add(new H1(quiz.getTitle()));
 			add(new HtmlComponent("br"));
 			add(new Hr());
@@ -362,6 +364,7 @@ public class ShowQuizView extends VerticalLayout implements HasUrlParameter<Stri
 			
 		}
 		public QuizAdminInterior(QuizUsersAnswers q){
+			MenuTemplate.addMenu(this);
 			add(new H1(quiz.getTitle()));
 			add(new HtmlComponent("br"));
 			add(new Hr());
@@ -420,6 +423,7 @@ public class ShowQuizView extends VerticalLayout implements HasUrlParameter<Stri
     }
 	@Override
 	public void setParameter(BeforeEvent event, @WildcardParameter String parameter) {
+		MenuTemplate.addMenu(this);
 		if(!parameter.isEmpty())
 		{
 			hashLink=parameter;

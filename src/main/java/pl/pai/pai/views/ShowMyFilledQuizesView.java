@@ -109,6 +109,7 @@ public class ShowMyFilledQuizesView extends VerticalLayout{
 	}
 	@PostConstruct
 	void postConstruct() {
+		MenuTemplate.addMenu(this);
 		user = userService.getAll().stream().filter(y->y.getEmail().equals(SecurityUtils.getLoggedUserName())).findFirst().get();
 		
 		List<QuizUsersAnswers> myQuizes = quizUsersAnswersService.getAll().stream().filter(x->x.getUser().getId()==user.getId()).collect(Collectors.toList());

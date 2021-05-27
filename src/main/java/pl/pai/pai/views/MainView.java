@@ -54,6 +54,8 @@ public class MainView extends VerticalLayout{
 	}
 	@PostConstruct
 	void postConstruct() {
+		MenuTemplate.addMenu(this);
+		
 		HorizontalLayout holder = new HorizontalLayout();
 		holder.setSizeFull();
 		VerticalLayout quizLayout = new VerticalLayout();

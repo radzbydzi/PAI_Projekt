@@ -94,6 +94,7 @@ public class ShowMyFilledSurveysView extends VerticalLayout{
 	}
 	@PostConstruct
 	void postConstruct() {
+		MenuTemplate.addMenu(this);
 		user = userService.getAll().stream().filter(y->y.getEmail().equals(SecurityUtils.getLoggedUserName())).findFirst().get();
 		
 		List<SurveyUsersAnswers> mySurveys = surveyUsersAnswersService.getAll().stream().filter(x->x.getUser().getId()==user.getId()).collect(Collectors.toList());

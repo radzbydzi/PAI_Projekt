@@ -185,11 +185,11 @@ public class QuizRestController {
         return surveyUsersAnswersService.getAll();
     }
 
-    @PostMapping(value =  "/surveyusersanswers/add")
-    public SurveyUsersAnswers addSurveyUsersAnswers(@RequestParam Long userId, @RequestParam Long surveyId)
-    {
-        return surveyUsersAnswersService.addSurveyUsersAnswers(userId, surveyId);
-    }
+//    @PostMapping(value =  "/surveyusersanswers/add")
+//    public SurveyUsersAnswers addSurveyUsersAnswers(@RequestParam Long userId, @RequestParam Long surveyId)
+//    {
+//        return surveyUsersAnswersService.addSurveyUsersAnswers(userId, surveyId);
+//    }
 
     @PostMapping(value =  "/surveyusersanswers/del")
     public boolean delSurveyUsersAnswers(@RequestParam Long id)

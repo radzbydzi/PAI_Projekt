@@ -204,6 +204,7 @@ public class ShowSurveyView extends VerticalLayout implements HasUrlParameter<St
 		
 		
 		public SurveyInterior(){
+			MenuTemplate.addMenu(this);
 			add(new H1(survey.getTitle()));
 			add(new HtmlComponent("br"));
 			add(new Hr());
@@ -278,6 +279,7 @@ public class ShowSurveyView extends VerticalLayout implements HasUrlParameter<St
 			return grade;
 		}
 		public SurveyAdminListInterior(){
+			MenuTemplate.addMenu(this);
 			add(new H1(survey.getTitle()));
 			add(new HtmlComponent("br"));
 			add(new Hr());
@@ -310,6 +312,7 @@ public class ShowSurveyView extends VerticalLayout implements HasUrlParameter<St
 			
 		}
 		public SurveyAdminInterior(SurveyUsersAnswers q){
+			MenuTemplate.addMenu(this);
 			add(new H1(survey.getTitle()));
 			add(new HtmlComponent("br"));
 			add(new Hr());
@@ -376,6 +379,7 @@ public class ShowSurveyView extends VerticalLayout implements HasUrlParameter<St
     }
 	@Override
 	public void setParameter(BeforeEvent event, @WildcardParameter String parameter) {
+		MenuTemplate.addMenu(this);
 		if(!parameter.isEmpty())
 		{
 			hashLink=parameter;
