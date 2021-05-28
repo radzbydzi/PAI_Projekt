@@ -13,6 +13,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -41,6 +42,7 @@ public class Quiz {
             cascade = CascadeType.ALL
     )
     @JsonIgnore
+    @LazyCollection(LazyCollectionOption.FALSE)
     List<QuizUsersAnswers> quizUsersAnswers = new ArrayList<>();
 
     boolean randomOrder = false;
@@ -56,6 +58,17 @@ public class Quiz {
 
     String hashLink;
 
+    public List<QuizQuestion> getShuffledQuestions()
+    {
+    	List<QuizQuestion> res = new ArrayList<>();
+    	res.addAll(questions);
+    	if(randomOrder)
+    	{
+    		Collections.shuffle(res);
+    	}
+    	return res;
+    }
+    
     public Quiz(String title, String description, boolean randomOrder, Long durationInSeconds, boolean forEveryone, User author, String hashLink) {
         this.title = title;
         this.description = description;

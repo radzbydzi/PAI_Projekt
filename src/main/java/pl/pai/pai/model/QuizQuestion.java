@@ -59,11 +59,14 @@ public class QuizQuestion {
         return (int) answers.stream().filter(x -> x.isCorrect).count();
     }
 
-    public List<QuizAnswer> shuffleAnswers()
+    public List<QuizAnswer> getShuffledAnswers()
     {
     	List<QuizAnswer> res = new ArrayList<>();
     	res.addAll(answers);
-        Collections.shuffle(res);
+    	if(quiz.isRandomOrder())
+    	{
+            Collections.shuffle(res);
+    	}
         return res;
     }
 

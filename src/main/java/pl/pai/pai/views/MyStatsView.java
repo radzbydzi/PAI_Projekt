@@ -72,7 +72,7 @@ public class MyStatsView extends VerticalLayout{
 		quizLayout.setWidth("50%");
 		
 		quizLayout.add(new H2("Moje najczęściej rozwiązywane quizy"));
-		List<Quiz> mostFrequentQuiz = quizService.getAll().stream().sorted((a,b) -> b.getQuizUsersAnswers().size()-a.getQuizUsersAnswers().size()).filter(x->x.getAuthor().getId()==user.getId()).filter(x->x.isForEveryone()).limit(10).collect(Collectors.toList());
+		List<Quiz> mostFrequentQuiz = quizService.getAll().stream().sorted((a,b) -> b.getQuizUsersAnswers().size()-a.getQuizUsersAnswers().size()).filter(x->x.getQuizUsersAnswers().size()>0).filter(x->x.getAuthor().getId()==user.getId()).filter(x->x.isForEveryone()).limit(10).collect(Collectors.toList());
 		Grid<Quiz> mostFreqentGrid = new Grid<>();
 		mostFreqentGrid.removeAllColumns();
 		mostFreqentGrid.setSelectionMode(SelectionMode.SINGLE);
@@ -88,7 +88,7 @@ public class MyStatsView extends VerticalLayout{
 		surveyLayout.setWidth("50%");
 		
 		surveyLayout.add(new H2("Moje najczęściej rozwiązywane ankiety"));
-		List<Survey> mostFrequentSurveys = surveyService.getAll().stream().sorted((a,b) -> b.getSurveyUsersAnswers().size()-a.getSurveyUsersAnswers().size()).filter(x->x.getAuthor().getId()==user.getId()).filter(x->x.isForEveryone()).limit(10).collect(Collectors.toList());
+		List<Survey> mostFrequentSurveys = surveyService.getAll().stream().sorted((a,b) -> b.getSurveyUsersAnswers().size()-a.getSurveyUsersAnswers().size()).filter(x->x.getSurveyUsersAnswers().size()>0).filter(x->x.getAuthor().getId()==user.getId()).filter(x->x.isForEveryone()).limit(10).collect(Collectors.toList());
 		Grid<Survey> mostFreqentSurveyGrid = new Grid<>();
 		mostFreqentSurveyGrid.removeAllColumns();
 		mostFreqentSurveyGrid.setSelectionMode(SelectionMode.SINGLE);

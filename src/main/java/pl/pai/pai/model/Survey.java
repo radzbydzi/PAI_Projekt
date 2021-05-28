@@ -39,6 +39,7 @@ public class Survey {
             mappedBy = "userSurvey",
             cascade = CascadeType.ALL
     )
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JsonIgnore
     List<SurveyUsersAnswers> surveyUsersAnswers = new ArrayList<>();
 

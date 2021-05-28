@@ -250,23 +250,24 @@ public class ShowQuizView extends VerticalLayout implements HasUrlParameter<Stri
 			timerCounter.start();
 			
 		
-			for(QuizQuestion question:quiz.getQuestions())
+			for(QuizQuestion question:quiz.getShuffledQuestions())
 			{
 				add(new H3(question.getQuestion()));
 				if(question.getType()==QuestionType.CLOSED)
 				{
+					List<QuizAnswer> shuffledAnswers = question.getShuffledAnswers();
 					if(question.getGoodAnswerCount()==1)
 					{
 						RadioButtonGroup<QuizAnswer> radioGroup = new RadioButtonGroup<>();
-						radioGroup.setItems(question.getAnswers());
-						radioGroup.setValue(question.getAnswers().get(0));
+						radioGroup.setItems(shuffledAnswers);
+						radioGroup.setValue(shuffledAnswers.get(0));
 						radioGroup.setRenderer(new TextRenderer<>(QuizAnswer::getDescription));
 						radioGroup.addThemeVariants(RadioGroupVariant.LUMO_VERTICAL);
 						add(radioGroup);
 						answers.add(new AnswerElement(question, radioGroup));
 					}else {
 						CheckboxGroup<QuizAnswer> checkboxGroup = new CheckboxGroup<>();
-						checkboxGroup.setItems(question.getAnswers());
+						checkboxGroup.setItems(shuffledAnswers);
 						checkboxGroup.setItemLabelGenerator(QuizAnswer::getDescription);
 						checkboxGroup.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);
 						add(checkboxGroup);

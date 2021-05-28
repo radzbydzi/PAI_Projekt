@@ -21,6 +21,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
 import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.html.Div;
@@ -30,7 +31,9 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.H5;
 import com.vaadin.flow.component.html.Hr;
+import com.vaadin.flow.component.html.Input;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
@@ -90,6 +93,23 @@ public class ShowMyQuizesView extends VerticalLayout{
 		});
 		return b;
 	}
+	Button showLink(Quiz q)
+	{
+		Dialog dialog = new Dialog();
+		TextField input = new TextField("Ścieżka");
+		input.setSizeFull();
+		input.setValue("/showQuiz/"+q.getHashLink());				
+		dialog.add(input);
+		dialog.setWidth("400px");
+		dialog.setHeight("150px");
+		
+		Button button = new Button("Pokaż link");
+        button.addClickListener(x->{
+            dialog.open();
+        }            
+        );
+		return button;
+	}
 	@PostConstruct
 	void postConstruct() {
 		MenuTemplate.addMenu(this);
@@ -103,6 +123,7 @@ public class ShowMyQuizesView extends VerticalLayout{
 		questionsGrid.setItems(myQuizes);//na liscie wszystkie wypełnione
 		questionsGrid.addColumn(Quiz::getTitle).setHeader("Quiz");
 		questionsGrid.addColumn(Quiz::getDescription).setHeader("Opis");
+		questionsGrid.addComponentColumn(this::showLink).setHeader("Link");
 		questionsGrid.addComponentColumn(this::showSolved).setHeader("Pokaż rozwiązania");
 		add(questionsGrid);
 		
