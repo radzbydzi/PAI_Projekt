@@ -203,7 +203,7 @@ public class AddSurveyView extends VerticalLayout{
 
 			surveyService.addSurvey(newSurvey);
 			
-			getUI().get().getPage().setLocation("/login");
+			getUI().get().getPage().setLocation("/");
 		});
 		add(register);
 	}

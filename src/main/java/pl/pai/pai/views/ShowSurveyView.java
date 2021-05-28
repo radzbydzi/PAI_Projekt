@@ -287,7 +287,7 @@ public class ShowSurveyView extends VerticalLayout implements HasUrlParameter<St
 			Grid<SurveyUsersAnswers> questionsGrid = new Grid<>();//taka tabela
 			questionsGrid.removeAllColumns();
 			questionsGrid.setSelectionMode(SelectionMode.SINGLE);
-			questionsGrid.setItems(surveyUsersAnswersService.getAll());//na liscie wszystkie wypełnione
+			questionsGrid.setItems(survey.getSurveyUsersAnswers());//na liscie wszystkie wypełnione
 			questionsGrid.addComponentColumn(this::showUser).setHeader("Użytkownik");//dodaje kto wypełniał
 			questionsGrid.addComponentColumn(this::showAdminGrading).setHeader("Zobacz");
 			add(questionsGrid);

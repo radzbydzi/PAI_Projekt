@@ -310,7 +310,7 @@ public class ShowQuizView extends VerticalLayout implements HasUrlParameter<Stri
 		}
 		Label showPoints(QuizUsersAnswers q)
 		{
-			long fullPoints = quiz.getQuestions().stream().map(z->z.getPoints()).reduce(0, Integer::sum);
+			long fullPoints = q.getUserQuiz().getQuestions().stream().map(z->z.getPoints()).reduce(0, Integer::sum);
 			int gainedPoints = q.getUserAnswers().stream().map(z->z.getPoints()).reduce(0, Integer::sum);
 			return new Label(gainedPoints+"/"+fullPoints);			
 		}
@@ -339,7 +339,7 @@ public class ShowQuizView extends VerticalLayout implements HasUrlParameter<Stri
 			Grid<QuizUsersAnswers> questionsGrid = new Grid<>();//taka tabela
 			questionsGrid.removeAllColumns();
 			questionsGrid.setSelectionMode(SelectionMode.SINGLE);
-			questionsGrid.setItems(quizUsersAnswersService.getAll());//na liscie wszystkie wypełnione
+			questionsGrid.setItems(quiz.getQuizUsersAnswers());//na liscie wszystkie wypełnione
 			questionsGrid.addComponentColumn(this::showUser).setHeader("Użytkownik");//dodaje kto wypełniał
 			questionsGrid.addComponentColumn(this::showPoints).setHeader("Punkty");
 			questionsGrid.addComponentColumn(this::showAdminGrading).setHeader("Oceń");
