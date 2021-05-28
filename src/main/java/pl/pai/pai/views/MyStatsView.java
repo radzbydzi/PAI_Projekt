@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.flow.component.button.Button;
@@ -22,15 +23,19 @@ import pl.pai.pai.security.SecurityUtils;
 import pl.pai.pai.service.QuizService;
 import pl.pai.pai.service.QuizUsersAnswersService;
 import pl.pai.pai.service.SurveyService;
+import pl.pai.pai.service.UserService;
 
-@Route("/")
-public class MainView extends VerticalLayout{
+@Route("/myStats")
+public class MyStatsView extends VerticalLayout{
 	
 	@Autowired
 	QuizService quizService;
 	
 	@Autowired
 	SurveyService surveyService;
+	
+	@Autowired
+	UserService userService;
 	
 	Button showSolved(Quiz q)
 	{
@@ -48,32 +53,26 @@ public class MainView extends VerticalLayout{
 		});
 		return b;
 	}
-	public MainView()
+	public MyStatsView()
 	{
 		
 	}
 	@PostConstruct
 	void postConstruct() {
 		MenuTemplate.addMenu(this);
+		pl.pai.pai.model.User user = userService.getAll().stream().filter(y->y.getEmail().equals(SecurityUtils.getLoggedUserName())).findFirst().get();
+		
+
+		add(new H2("Stworzyłeś "+quizService.getAll().stream().filter(x->x.getAuthor().getId()==user.getId()).count()+" quizów"));
+		add(new H2("Stworzyłeś "+surveyService.getAll().stream().filter(x->x.getAuthor().getId()==user.getId()).count()+" ankiet"));
 		
 		HorizontalLayout holder = new HorizontalLayout();
 		holder.setSizeFull();
 		VerticalLayout quizLayout = new VerticalLayout();
 		quizLayout.setWidth("50%");
 		
-		quizLayout.add(new H2("Ostatnio dodane quizy"));
-		List<Quiz> lastAddedQuizes = quizService.getAll().stream().sorted((a,b) -> (int)(b.getId()-a.getId())).filter(x->x.isForEveryone()).limit(10).collect(Collectors.toList());
-		Grid<Quiz> lastAddedGrid = new Grid<>();
-		lastAddedGrid.removeAllColumns();
-		lastAddedGrid.setSelectionMode(SelectionMode.SINGLE);
-		lastAddedGrid.setItems(lastAddedQuizes);//na liscie wszystkie wypełnione
-		lastAddedGrid.addColumn(Quiz::getTitle).setHeader("Quiz");
-		lastAddedGrid.addColumn(Quiz::getDescription).setHeader("Opis");
-		lastAddedGrid.addComponentColumn(this::showSolved).setHeader("Wejdź do Quizu");
-		quizLayout.add(lastAddedGrid);
-		
-		quizLayout.add(new H2("Najczęściej rozwiązywane quizy"));
-		List<Quiz> mostFrequentQuiz = quizService.getAll().stream().sorted((a,b) -> b.getQuizUsersAnswers().size()-a.getQuizUsersAnswers().size()).filter(x->x.isForEveryone()).limit(10).collect(Collectors.toList());
+		quizLayout.add(new H2("Moje najczęściej rozwiązywane quizy"));
+		List<Quiz> mostFrequentQuiz = quizService.getAll().stream().sorted((a,b) -> b.getQuizUsersAnswers().size()-a.getQuizUsersAnswers().size()).filter(x->x.getAuthor().getId()==user.getId()).filter(x->x.isForEveryone()).limit(10).collect(Collectors.toList());
 		Grid<Quiz> mostFreqentGrid = new Grid<>();
 		mostFreqentGrid.removeAllColumns();
 		mostFreqentGrid.setSelectionMode(SelectionMode.SINGLE);
@@ -87,19 +86,9 @@ public class MainView extends VerticalLayout{
 		
 		VerticalLayout surveyLayout = new VerticalLayout();
 		surveyLayout.setWidth("50%");
-		surveyLayout.add(new H2("Ostatnio dodane ankiety"));
-		List<Survey> lastAddedSurveys = surveyService.getAll().stream().sorted((a,b) -> (int)(b.getId()-a.getId())).filter(x->x.isForEveryone()).limit(10).collect(Collectors.toList());
-		Grid<Survey> lastAddedSurveyGrid = new Grid<>();
-		lastAddedSurveyGrid.removeAllColumns();
-		lastAddedSurveyGrid.setSelectionMode(SelectionMode.SINGLE);
-		lastAddedSurveyGrid.setItems(lastAddedSurveys);//na liscie wszystkie wypełnione
-		lastAddedSurveyGrid.addColumn(Survey::getTitle).setHeader("Ankieta");
-		lastAddedSurveyGrid.addColumn(Survey::getDescription).setHeader("Opis");
-		lastAddedSurveyGrid.addComponentColumn(this::showSolved).setHeader("Wejdź do ankiety");
-		surveyLayout.add(lastAddedSurveyGrid);
 		
-		surveyLayout.add(new H2("Najczęściej rozwiązywane ankiety"));
-		List<Survey> mostFrequentSurveys = surveyService.getAll().stream().sorted((a,b) -> b.getSurveyUsersAnswers().size()-a.getSurveyUsersAnswers().size()).filter(x->x.isForEveryone()).limit(10).collect(Collectors.toList());
+		surveyLayout.add(new H2("Moje najczęściej rozwiązywane ankiety"));
+		List<Survey> mostFrequentSurveys = surveyService.getAll().stream().sorted((a,b) -> b.getSurveyUsersAnswers().size()-a.getSurveyUsersAnswers().size()).filter(x->x.getAuthor().getId()==user.getId()).filter(x->x.isForEveryone()).limit(10).collect(Collectors.toList());
 		Grid<Survey> mostFreqentSurveyGrid = new Grid<>();
 		mostFreqentSurveyGrid.removeAllColumns();
 		mostFreqentSurveyGrid.setSelectionMode(SelectionMode.SINGLE);

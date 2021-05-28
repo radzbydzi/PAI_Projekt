@@ -74,7 +74,12 @@ public class MenuTemplate {
 			
 		});
 		hl.add(addSurvey);
-		
+		Button myStat = new Button("Moje statystyki");
+		myStat.addClickListener(x->{
+			base.getUI().get().getPage().setLocation("/myStats");
+			
+		});
+		hl.add(myStat);
 		Button logout = new Button("Wyloguj się");
 		logout.addClickListener(x->{
 			base.getUI().get().getPage().setLocation("/logout");
