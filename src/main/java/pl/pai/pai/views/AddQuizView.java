@@ -241,7 +241,7 @@ public class AddQuizView extends VerticalLayout{
 
 			quizService.addQuiz(newQuiz);
 			
-			getUI().get().getPage().setLocation("/login");
+			getUI().get().getPage().setLocation("/");
 		});
 		add(register);
 	}
