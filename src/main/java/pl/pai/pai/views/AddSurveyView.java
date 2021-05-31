@@ -43,7 +43,7 @@ import pl.pai.pai.service.SurveyService;
 import pl.pai.pai.service.SurveyUsersAnswersService;
 import pl.pai.pai.service.UserService;
 
-@Route("/add/survey")
+@Route("/addSurvey")
 public class AddSurveyView extends VerticalLayout{
 	@Autowired
     UserService userService;
@@ -63,7 +63,8 @@ public class AddSurveyView extends VerticalLayout{
 	public AddSurveyView(){
 		
 	}
-	private String inputWidth = "240px";
+	private String inputWidth = "350px";
+	private String inputWidthAnsw = "300px";
 	
 	@Data
 	class QuestionBox{
@@ -125,11 +126,17 @@ public class AddSurveyView extends VerticalLayout{
 		Button addClosed = new Button("Dodaj pytanie zamknięte");
 		addClosed.addClickListener(x->{
 			TextField question = new TextField("Treść pytania");
+			question.setWidth(inputWidth);
 			
 			TextField answA = new TextField("Odpowiedź A");
 			TextField answB = new TextField("Odpowiedź B");
 			TextField answC = new TextField("Odpowiedź C");
 			TextField answD = new TextField("Odpowiedź D");
+			
+			answA.setWidth(inputWidthAnsw);
+			answB.setWidth(inputWidthAnsw);
+			answC.setWidth(inputWidthAnsw);
+			answD.setWidth(inputWidthAnsw);
 			
 			Select<QuestionType> questionType = new Select<QuestionType>();
 			questionType.setItems(QuestionType.CLOSED,QuestionType.CLOSED_MULTI);
@@ -144,6 +151,7 @@ public class AddSurveyView extends VerticalLayout{
 		Button addOpened = new Button("Dodaj pytanie otwarte");
 		addOpened.addClickListener(x->{
 			TextField question = new TextField("Treść pytania");
+			question.setWidth(inputWidth);
 			
 			Select<QuestionType> questionType = new Select<QuestionType>();
 			questionType.setItems(QuestionType.OPENED,QuestionType.OPENED_LONG);

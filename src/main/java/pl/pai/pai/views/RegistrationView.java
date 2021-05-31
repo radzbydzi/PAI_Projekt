@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
@@ -29,6 +30,7 @@ public class RegistrationView extends VerticalLayout{
 	private String inputWidth = "240px";
 	@PostConstruct
 	void postConstruct() {
+		add(new H1("Rejestracja"));
 		TextField  name = new TextField ("Imię");
 		name.setWidth(inputWidth);
 		add(name);

@@ -45,7 +45,7 @@ public class MenuTemplate {
 		hl.add(publicQuizes);
 		Button addQuiz = new Button("Stwórz quiz");
 		addQuiz.addClickListener(x->{
-			base.getUI().get().getPage().setLocation("/add/quiz");
+			base.getUI().get().getPage().setLocation("/addQuiz");
 			
 		});
 		hl.add(addQuiz);
@@ -70,7 +70,7 @@ public class MenuTemplate {
 		hl.add(publicSurveys);
 		Button addSurvey = new Button("Stwórz ankiete");
 		addSurvey.addClickListener(x->{
-			base.getUI().get().getPage().setLocation("/add/survey");
+			base.getUI().get().getPage().setLocation("/addSurvey");
 			
 		});
 		hl.add(addSurvey);
@@ -90,12 +90,18 @@ public class MenuTemplate {
 	}
 	
 	static void addMenu(HorizontalLayout l) {
+		l.setSizeFull();
+//		l.getStyle().set("background-color", "#3d3d3d");
 		l.add(menuInterior(l));
 	}
 	static void addMenu(VerticalLayout l) {
+		l.setSizeFull();
+//		l.getStyle().set("background-color", "#3d3d3d");
 		l.add(menuInterior(l));
 	}
 	static void addMenu(Div l) {
+		l.setSizeFull();
+//		l.getStyle().set("background-color", "pink");
 		l.add(menuInterior(l));
 	}
 }

@@ -36,7 +36,7 @@ import pl.pai.pai.service.QuizService;
 import pl.pai.pai.service.QuizUsersAnswersService;
 import pl.pai.pai.service.UserService;
 
-@Route("/add/quiz")
+@Route("/addQuiz")
 public class AddQuizView extends VerticalLayout{
 	@Autowired
     UserService userService;
@@ -56,7 +56,8 @@ public class AddQuizView extends VerticalLayout{
 	public AddQuizView(){
 		
 	}
-	private String inputWidth = "240px";
+	private String inputWidth = "350px";
+	private String inputWidthAnsw = "300px";
 	
 	@Data
 	class QuestionBox{
@@ -130,6 +131,7 @@ public class AddQuizView extends VerticalLayout{
 		
 		NumberField durationSeconds = new NumberField("Czas trwania w sekundach");
 		add(durationSeconds);
+		durationSeconds.setWidth("200px");
 		
 		
 		VerticalLayout questionHolder= new VerticalLayout();
@@ -139,6 +141,7 @@ public class AddQuizView extends VerticalLayout{
 		Button addClosed = new Button("Dodaj pytanie zamknięte");
 		addClosed.addClickListener(x->{
 			TextField question = new TextField("Treść pytania");
+			question.setWidth(inputWidth);
 			
 			TextField answA = new TextField("Odpowiedź A");
 			Checkbox chAnsA = new Checkbox();
@@ -148,6 +151,11 @@ public class AddQuizView extends VerticalLayout{
 			Checkbox chAnsC = new Checkbox();
 			TextField answD = new TextField("Odpowiedź D");
 			Checkbox chAnsD = new Checkbox();
+			
+			answA.setWidth(inputWidthAnsw);
+			answB.setWidth(inputWidthAnsw);
+			answC.setWidth(inputWidthAnsw);
+			answD.setWidth(inputWidthAnsw);
 			
 			
 			questions.add(new QuestionBox(question, answA, chAnsA, answB, chAnsB, answC, chAnsC, answD, chAnsD));
@@ -159,12 +167,15 @@ public class AddQuizView extends VerticalLayout{
 		Button addOpened = new Button("Dodaj pytanie otwarte");
 		addOpened.addClickListener(x->{
 			TextField question = new TextField("Treść pytania");
+			question.setWidth(inputWidth);
 			
 			Select<String> length = new Select<String>();
 			length.setItems("Długie", "Krótkie");
 			length.setLabel("Długość odpowiedzi");
+			//length.setWidth(inputWidth);
 			
 			NumberField pointsAmount = new NumberField("Punkty za pytanie");
+			//pointsAmount.setWidth("inputWidth");
 			
 			questions.add(new QuestionBox(question, length, pointsAmount));
 			questionHolder.add(question, length, pointsAmount);
